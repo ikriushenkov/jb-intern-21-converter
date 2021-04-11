@@ -62,8 +62,10 @@ class ConverterTest {
         assertFailsWith<SyntaxException> { shorten("map{1+10}") }
         assertFailsWith<SyntaxException> { shorten("map{(el+1)}") }
         assertFailsWith<SyntaxException> { shorten("map{(1+1") }
+        assertFailsWith<SyntaxException> { shorten("map{}") }
         assertFailsWith<SyntaxException> { shorten("hello") }
         assertFailsWith<SyntaxException> { shorten("filter{((element>=10)&(element<20))}%>%map{element}") }
+        assertFailsWith<SyntaxException> { shorten("filter{map{element}}") }
     }
 
     @Test
@@ -73,5 +75,6 @@ class ConverterTest {
         assertFailsWith<TypeException> { shorten("filter{(1&2)}") }
         assertFailsWith<TypeException> { shorten("map{(1&2)}") }
         assertFailsWith<TypeException> { shorten("filter{((0=0)>(1=0))}") }
+        assertFailsWith<TypeException> { shorten("filter{(element|element)}") }
     }
 }

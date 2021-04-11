@@ -1,6 +1,7 @@
 package call
 
 import Operation
+import exceptions.TypeException
 import expression.*
 
 class CallChain(private val calls: List<Call>) {
@@ -12,7 +13,7 @@ class CallChain(private val calls: List<Call>) {
             if (i is MapCall) {
                 maps = i.expression.putInElement(maps)
             } else {
-                listFilters += i.expression.putInElement(maps) as? LogicExpression ?: throw Exception("TYPE ERROR")
+                listFilters += i.expression.putInElement(maps) as? LogicExpression ?: throw TypeException()
             }
         }
 
